@@ -12,16 +12,15 @@
     </div>
   <% end %>
 
-  名前:
-  <%= u.text_field :name %>
-
-  アドレス:
-  <%= u.text_field :email %>
-   地域:
-  <%= u.text_field :address %>
-   プロフィール:
-  <%= u.text_area :profile %>
-  
+  <%= u.label :name, "氏名" %>
+  <%= u.text_field :name, class: 'form-control' %>
+  <%= u.label :email, "アドレス"%>
+  <%= u.text_field :email, class: 'form-control' %>
+  <%= u.label :address, "地域"%>
+  <%= u.text_field :address, class: 'form-control' %>
+  <%= u.label :profile, "プロフィール"%>
+  <%= u.text_field :profile, class: 'form-control' %>
+   
   <%= u.submit  "更新" ,class: "btn btn-sm btn-primary"  %>
 
 <% end %>
