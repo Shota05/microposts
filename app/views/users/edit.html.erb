@@ -1,0 +1,27 @@
+<%= form_for(current_user) do |u| %>
+  <% if current_user.errors.present? %>
+    <div class="alert alert-danger">
+      <%= alert %>
+      <ul>
+        <% @message.errors.full_messages.each do |full_message| %>
+          <li>
+            <%= full_message %>
+          </li>
+        <% end %> 
+      </ul>
+    </div>
+  <% end %>
+
+  名前:
+  <%= u.text_field :name %>
+
+  アドレス:
+  <%= u.text_field :email %>
+   地域:
+  <%= u.text_field :address %>
+   プロフィール:
+  <%= u.text_area :profile %>
+  
+  <%= u.submit  "更新" ,class: "btn btn-sm btn-primary"  %>
+
+<% end %>
