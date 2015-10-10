@@ -8,7 +8,8 @@ Rails.application.routes.draw do
   get    'login'   => 'sessions#new'
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
-
+  get 'users_following',  to: 'users#followings'
+  get 'users_follower',  to: 'users#follower'
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
   resources :relationships, only: [:create, :destroy]
