@@ -1,3 +1,3 @@
-<%= @followers.each do |f| %>
-    <%= f.name %>
+<% @followers.each do |f| %>
+    <%= link_to f.name,f %>
 <% end %>
