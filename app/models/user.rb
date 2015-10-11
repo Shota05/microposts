@@ -20,6 +20,10 @@ class User < ActiveRecord::Base
   def follow(other_user)
     following_relationships.create(followed_id: other_user.id)
   end
+  
+  def feed_items
+    Micropost.where(user_id: following_user_ids + [self.id])
+  end
 
   # フォローしているユーザーをアンフォローする
   def unfollow(other_user)
