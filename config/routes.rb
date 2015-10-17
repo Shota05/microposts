@@ -4,11 +4,20 @@ Rails.application.routes.draw do
   get 'signup',  to: 'users#new'
   get 'static_pages/home'
   root 'static_pages#home'
-  resources :microposts
+  resources :microposts do
+    post :favorite, on: :collection
+  end    
+  
   get    'login'   => 'sessions#new'
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
-
+  get 'micropost/retweet',  to: 'microposts#retweet'
+  
+  #get 'micropost/favorite',  to: 'microposts#favorite'
+  
+  
+  get 'favorite',  to: 'microposts#favorite_all'
+  post 'micropost/retweeted',  to: 'microposts#retweeted'
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
   resources :relationships, only: [:create, :destroy]

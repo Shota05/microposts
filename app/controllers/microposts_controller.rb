@@ -19,8 +19,43 @@ class MicropostsController < ApplicationController
     redirect_to request.referrer || root_url
   end
   
+  def favorite
+    @relationship = current_user.favoriter_relationships.build(favorite_id: params[:micropost_id])
+    if @relationship.save
+      flash[:success] = "Micropost favorited!"
+      redirect_to root_url
+    else
+      render 'static_pages/home'
+    end
+  end
+  
+    
+  def favorite_all
+    @favorites = current_user.favoriter_microposts
+  end
+  
+  def retweet
+    @micropost = Micropost.find_by(id: params[:id])
+    @micropost_retweet = Micropost.new
+  end
+  
+  def retweeted
+    @micropost_retweet = current_user.microposts.build(micropost_params)
+    @relationship = @micropost_retweet.retweet_relationships.new(retweeted_id: params[:micropost][:retweeted_id])
+    if @micropost_retweet.save
+      flash[:success] = "Micropost retweetd!"
+      redirect_to root_url
+    else
+      render 'static_pages/home'
+    end
+  end
+  
   private
   def micropost_params
     params.require(:micropost).permit(:content)
   end
+  def micropost_relationship_params
+    params.require(:micropost).permit(:retweet_id ,:retweeted_id)
+  end
+  
 end

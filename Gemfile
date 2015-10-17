@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 group :development, :test do
   gem 'pry-rails'
 end
+gem 'kaminari'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

@@ -7,6 +7,21 @@
     <% if current_user == micropost.user %>
       <%= link_to "delete", micropost, method: :delete,
                                        data: { confirm: "You sure?" } %>
+    <% elsif current_user != micropost.user %>
+      <%= link_to "retweet", :controller => "microposts", :action => "retweet", :id => micropost.id %> 
+      <%# if current_user == micropost.favorite_users.find_by(1) %>
+      <% if current_user == micropost.favorite_users.pluck(:favoriter_id).include?(current_user.id) %>
+      <%# if RelationshipOkini.find_by(favorite_id: micropost.id, favoriter_id: current_user.id) %>
+        favorited 
+      <% else %>
+        <%# link_to "favorite", :controller => "microposts", :action => "favorite", :micropost_id => micropost.id %>
+        <%= link_to "favorite", favorite_microposts_path(micropost_id: micropost.id), method: :post %>
+      <% end %>  
+    <% else %>  
+    <% end %>
+    <% # ここの取り方が微妙?? 　一意になるものだからfind_by(1)で良い？　 %>
+    <% if micropost.retweet_microposts.find_by(1) != nil %>
+      Retweeted <%= micropost.retweet_microposts.count %>
     <% end %>
   </span>
 </li>

@@ -7,6 +7,10 @@ class User < ActiveRecord::Base
                                     foreign_key: "followed_id",
                                     dependent:   :destroy
   has_many :follower_users, through: :follower_relationships, source: :follower
+  has_many :favoriter_relationships, class_name:  "RelationshipOkini",
+                                     foreign_key: "favoriter_id"
+  has_many :favoriter_microposts, through: :favoriter_relationships, source: :favorite
+  
     has_many :microposts
     has_secure_password
     before_save { self.email = email.downcase }
