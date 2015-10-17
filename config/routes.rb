@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   delete 'logout'  => 'sessions#destroy'
   get 'micropost/retweet',  to: 'microposts#retweet'
   
-  #get 'micropost/favorite',  to: 'microposts#favorite'
+  #post 'micropost/favorite',  to: 'microposts#favorite'
   
   
   get 'favorite',  to: 'microposts#favorite_all'

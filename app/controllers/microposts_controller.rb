@@ -3,6 +3,7 @@ class MicropostsController < ApplicationController
 
   def create
     @micropost = current_user.microposts.build(micropost_params)
+    @feed_items = current_user.feed_items.includes(:user).order(created_at: :desc).page(params[:page])
     if @micropost.save
       flash[:success] = "Micropost created!"
       redirect_to root_url
@@ -16,6 +17,7 @@ class MicropostsController < ApplicationController
     return redirect_to root_url if @micropost.nil?
     @micropost.destroy
     flash[:success] = "Micropost deleted"
+    redirect_to root_url
     redirect_to request.referrer || root_url
   end
   
@@ -28,6 +30,7 @@ class MicropostsController < ApplicationController
       render 'static_pages/home'
     end
   end
+
   
     
   def favorite_all
